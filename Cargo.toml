@@ -1,0 +1,18 @@
+[package]
+name = "book_management_system"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+salvo = "0.37.9"
+salvo_core = "0.37.9"
+salvo_extra = "0.37.9"
+sea-orm = { version = "0.11.3", features = ["debug-print", "runtime-tokio-rustls", "sqlx-mysql"] }
+askama = "0.12.0"
+mysql = "20.1.0"
+tokio = { version = "1.0", features = ["full"] }
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+serde = { version = "1", features = ["derive"] }
+dotenvy = "0.15"

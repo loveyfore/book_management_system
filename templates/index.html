@@ -1,0 +1,54 @@
+<!-- src/templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Management System</title>
+</head>
+<body>
+<h1>Book Management System</h1>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Publication Year</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for book in books %}
+  <tr>
+    <td>{{ book.id }}</td>
+    <td>{{ book.title }}</td>
+    <td>{{ book.author }}</td>
+    <td>{{ book.publication_year }}</td>
+    <td>
+      <form action="/update" method="POST">
+        <input type="hidden" name="id" value="{{ book.id }}">
+        <input type="text" name="title" value="{{ book.title }}" placeholder="Title">
+        <input type="text" name="author" value="{{ book.author }}" placeholder="Author">
+        <input type="number" name="publication_year" value="{{ book.publication_year }}" placeholder="Publication Year">
+        <button type="submit">Update</button>
+      </form>
+      <form action="/delete/{{ book.id }}" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<h2>Add Book</h2>
+<form action="/add" method="POST">
+  <input type="text" name="title" placeholder="Title">
+  <input type="text" name="author" placeholder="Author">
+  <input type="number" name="publication_year" placeholder="Publication Year">
+  <button type="submit">Add Book</button>
+</form>
+</body>
+</html>
