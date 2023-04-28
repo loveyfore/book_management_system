@@ -1,5 +1,3 @@
-// src/entities/book.rs
-
 use sea_orm::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, serde::Deserialize, serde::Serialize)]
@@ -13,9 +11,6 @@ pub struct Model {
     pub author: String,
     pub publication_year: i32,
 }
-
-// pub type Book = Entity;
-// pub type BookModel = Model;
 
 impl Model {
     pub fn new(title: String, author: String, publication_year: i32) -> Self {

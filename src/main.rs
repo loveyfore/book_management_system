@@ -1,17 +1,14 @@
 use std::env;
 use salvo_extra::affix;
-
-mod controllers;
-mod services;
-mod daos;
-mod entities;
-
 use salvo::prelude::*;
 use sea_orm::{Database, DatabaseConnection};
 use controllers::book_controller;
 use book_controller::AppState;
 
-
+mod entities;
+mod daos;
+mod services;
+mod controllers;
 
 #[tokio::main]
 async fn main() {
@@ -25,7 +22,6 @@ async fn main() {
     let port = env::var("PORT").expect("PORT is not set in .env file");
     let server_url = format!("{host}:{port}");
 
-    // create post table if not exists
     let conn = Database::connect(&db_url).await.unwrap();
     let state = AppState { conn };
 
@@ -36,8 +32,7 @@ async fn main() {
         .push(Router::with_path("update").post(book_controller::update_book))
         .push(Router::with_path("delete/<id>").post(book_controller::delete_book));
 
-    // Server::new(router).bind(([0, 0, 0, 0], 8080)).await;
-    Server::new(TcpListener::bind(&format!("{host}:{port}")))
+    Server::new(TcpListener::bind(&server_url))
         .serve(router)
         .await;
 }
